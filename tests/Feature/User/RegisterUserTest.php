@@ -204,7 +204,7 @@ describe('validation tests', function (){
         $request->assertJsonValidationErrors(['password' => $rule]);
     })->with([
         'required'      => ["The password field is required.", ''],
-        'confirme'      => ['The password field confirmation does not match.', 'jane.doe'],
+        'confirmed'      => ['The password field confirmation does not match.', 'jane.doe'],
     ]);
 
 
