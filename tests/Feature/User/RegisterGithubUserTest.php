@@ -2,6 +2,7 @@
 
 use App\Enums\GenderEnum;
 use App\Models\User;
+use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Http;
 use function Pest\Laravel\assertDatabaseCount;
 use function Pest\Laravel\assertDatabaseHas;
@@ -69,3 +70,26 @@ it('should be able to register an user to the using the github informations appl
         ]
     ]);
 });
+
+
+
+it('should throws exception if an user is not found'  , function () {
+ withoutExceptionHandling();
+ Http::fake([
+     "https://api.github.com/users/joe" => Http::throw(function (){
+       throw new RequestException();
+     })
+ ]);
+    $request = postJson(route('users.github.store',[
+        'name'                   => 'ahahahahahahshdajda',
+        'username'               =>  'joeusername',
+        'lastname'               =>  'doelastname',
+        'profileImageUrl'        =>  'https://fastly.picsum.photos/id/227/536/354.jpg?hmac=1jloCASGdPzCfkdYKsHPN_SJWF91dYptz1hBpmEbKI4',
+        'bio'                    =>  'my_bio',
+        'gender'                 =>  GenderEnum::MALE->value,
+        'email'                  => 'joe@doe.com',
+        'password'               => 'password',
+        'password_confirmation'  => 'password'
+    ]));
+
+})->throws(RequestException::class);

@@ -36,7 +36,7 @@ class GetGithubUserByName extends Command
         ->throw()
         ->json();
 
-        return new UserDTO(
+       return new UserDTO(
            login: $request['login'],
            name: $request['name'],
            email: $request['email'],
