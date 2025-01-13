@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\ShowUserController;
 use App\Http\Controllers\User\CreateGithubUserController;
 use App\Http\Controllers\User\CreateUserController;
+use App\Http\Controllers\User\ShowUserController;
+use App\Http\Controllers\User\UpdateUserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,4 +16,5 @@ Route::post('github-users', CreateGithubUserController::class)->name('users.gith
 
 Route::get('users/email/{user:email}',ShowUserController::class)->name('users.email.show');
 Route::get('users/username/{user:username}', ShowUserController::class)->name('users.show');
+Route::put('users/{user}', UpdateUserController::class)->name('users.update');
 
