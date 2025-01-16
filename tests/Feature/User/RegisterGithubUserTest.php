@@ -13,15 +13,15 @@ use function Pest\Laravel\withoutExceptionHandling;
 it('should be able to register an user to the using the github informations application', function (){
     withoutExceptionHandling();
 
-    Http::fake([
-        "https://api.github.com/users/joe" => Http::response([
-               "login"       => "joe",
-                "name"       => "joe",
-                "email"      => "joe@doe.com",
-                "avatar_url" => "https://avatars.githubusercontent.com/u/787?v=4",
-                "bio"        => "my_bio"
-        ])
-    ]);
+//    Http::fake([
+//        "https://api.github.com/users/joe" => Http::response([
+//               "login"       => "joe",
+//                "name"       => "joe",
+//                "email"      => "joe@doe.com",
+//                "avatar_url" => "https://avatars.githubusercontent.com/u/787?v=4",
+//                "bio"        => "my_bio"
+//        ])
+//    ]);
 
     $request = postJson(route('users.github.store',[
         'name'                   => 'joe',

@@ -3,6 +3,8 @@
 namespace App\Console\Commands;
 
 use App\DataTransferObjects\UserDTO;
+use App\Services\Github\Facades\Github;
+use App\Services\Github\GithubService;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 
@@ -27,14 +29,7 @@ class GetGithubUserByName extends Command
      */
     public function handle(string $user): UserDTO
     {
-       $request =  Http::withHeaders([
-            "Accept: application/vnd.github+json" ,
-            "Authorization: Bearer". config('github.token'),
-            "X-GitHub-Api-Version: 2022-11-28"
-        ])
-        ->get("https://api.github.com/users/$user")
-        ->throw()
-        ->json();
+       $request = Github::user($user);
 
        return new UserDTO(
            login: $request['login'],
